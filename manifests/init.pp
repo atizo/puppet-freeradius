@@ -27,4 +27,12 @@ class freeradius {
     command => 'make -C /etc/raddb/certs',
     creates => '/etc/raddb/certs/server.crt',
   }
+  file{'/etc/raddb/radiusd.conf':
+    source => [
+      "puppet://$server/modules/site-freeradius/$fqdn/radiusd.conf",
+      "puppet://$server/modules/site-freeradius/radiusd.conf",
+      "puppet://$server/modules/freeradius/radiusd.conf",
+    ],
+    require => Package['freeradius2'],
+  }
 }
