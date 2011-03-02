@@ -21,11 +21,15 @@ class freeradius {
     hasstatus => true,
     ensure => running,
     enable => true,
-    require => Exec['freeradius-certificates'],
+    require => [
+      Package['freeradius2'],
+      Exec['freeradius-certificates'],
+    ],
   }
   exec{'freeradius-certificates':
     command => 'make -C /etc/raddb/certs',
     creates => '/etc/raddb/certs/server.crt',
+    require => Package['freeradius2'],
   }
   file{'/etc/raddb/radiusd.conf':
     source => [
