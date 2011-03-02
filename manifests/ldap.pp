@@ -11,6 +11,6 @@ class freeradius::ldap {
     ],
     notify => Service['radiusd'],
     require => Package['freeradius2-ldap'],
-    owner => root, group => root, 0640;
+    owner => root, group => root, mode => 0640;
   }
 }
