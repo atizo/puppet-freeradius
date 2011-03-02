@@ -35,6 +35,7 @@ class freeradius {
     ],
     notify => Service['radiusd'],
     require => Package['freeradius2'],
+    owner => root, group => root, 0640;
   }
   file{'/etc/raddb/clients.conf':
     source => [
@@ -44,5 +45,6 @@ class freeradius {
     ],
     notify => Service['radiusd'],
     require => Package['freeradius2'],
+    owner => root, group => root, 0640;
   }
 }
