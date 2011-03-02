@@ -36,4 +36,13 @@ class freeradius {
     notify => Service['radiusd'],
     require => Package['freeradius2'],
   }
+  file{'/etc/raddb/clients.conf':
+    source => [
+      "puppet://$server/modules/site-freeradius/$fqdn/clients.conf",
+      "puppet://$server/modules/site-freeradius/clients.conf",
+      "puppet://$server/modules/freeradius/clients.conf",
+    ],
+    notify => Service['radiusd'],
+    require => Package['freeradius2'],
+  }
 }
