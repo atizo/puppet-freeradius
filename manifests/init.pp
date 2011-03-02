@@ -51,4 +51,14 @@ class freeradius {
     require => Package['freeradius2'],
     owner => root, group => root, mode => 0640;
   }
+  file{'/etc/raddb/sites-available/default':
+    source => [
+      "puppet://$server/modules/site-freeradius/sites-available/$fqdn/default",
+      "puppet://$server/modules/site-freeradius/sites-available/default",
+      "puppet://$server/modules/freeradius/sites-available/default",
+    ],
+    notify => Service['radiusd'],
+    require => Package['freeradius2'],
+    owner => root, group => root, mode => 0640;
+  }
 }
