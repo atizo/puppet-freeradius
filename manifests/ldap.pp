@@ -9,6 +9,7 @@ class freeradius::ldap {
       "puppet://$server/modules/site-freeradius/modules/ldap",
       "puppet://$server/modules/freeradius/modules/ldap",
     ],
+    notify => Service['radiusd'],
     require => Package['freeradius2-ldap'],
   }
 }

@@ -33,6 +33,7 @@ class freeradius {
       "puppet://$server/modules/site-freeradius/radiusd.conf",
       "puppet://$server/modules/freeradius/radiusd.conf",
     ],
+    notify => Service['radiusd'],
     require => Package['freeradius2'],
   }
 }
