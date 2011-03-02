@@ -21,6 +21,7 @@ class freeradius {
     hasstatus => true,
     ensure => running,
     enable => true,
+    require => Exec['freeradius-certificates'],
   }
   exec{'freeradius-certificates':
     command => 'make -C /etc/raddb/certs',
