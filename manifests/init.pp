@@ -1,7 +1,7 @@
 #
 # freeradius module
 #
-# Copyright 2010, Atizo AG
+# Copyright 2011, Atizo AG
 # Simon Josi simon.josi+puppet(at)atizo.com
 #
 # This program is free software; you can redistribute 
@@ -31,44 +31,11 @@ class freeradius {
     creates => '/etc/raddb/certs/server.crt',
     require => Package['freeradius2'],
   }
-  file{'/etc/raddb/radiusd.conf':
-    source => [
-      "puppet://$server/modules/site-freeradius/$fqdn/radiusd.conf",
-      "puppet://$server/modules/site-freeradius/radiusd.conf",
-      "puppet://$server/modules/freeradius/radiusd.conf",
-    ],
-    notify => Service['radiusd'],
-    require => Package['freeradius2'],
-    owner => root, group => root, mode => 0640;
-  }
-  file{'/etc/raddb/clients.conf':
-    source => [
-      "puppet://$server/modules/site-freeradius/$fqdn/clients.conf",
-      "puppet://$server/modules/site-freeradius/clients.conf",
-      "puppet://$server/modules/freeradius/clients.conf",
-    ],
-    notify => Service['radiusd'],
-    require => Package['freeradius2'],
-    owner => root, group => root, mode => 0640;
-  }
-  file{'/etc/raddb/eap.conf':
-    source => [
-      "puppet://$server/modules/site-freeradius/$fqdn/eap.conf",
-      "puppet://$server/modules/site-freeradius/eap.conf",
-      "puppet://$server/modules/freeradius/eap.conf",
-    ],
-    notify => Service['radiusd'],
-    require => Package['freeradius2'],
-    owner => root, group => root, mode => 0640;
-  }
-  file{'/etc/raddb/sites-available/default':
-    source => [
-      "puppet://$server/modules/site-freeradius/sites-available/$fqdn/default",
-      "puppet://$server/modules/site-freeradius/sites-available/default",
-      "puppet://$server/modules/freeradius/sites-available/default",
-    ],
-    notify => Service['radiusd'],
-    require => Package['freeradius2'],
-    owner => root, group => root, mode => 0640;
-  }
+  freeradius::configfile{[
+    'radiusd.conf',
+    'clients.conf',
+    'eap.conf',
+    'sites-available/default',
+    'sites-available/inner-tunnel',
+  ]:}
 }
