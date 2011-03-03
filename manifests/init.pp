@@ -51,6 +51,16 @@ class freeradius {
     require => Package['freeradius2'],
     owner => root, group => root, mode => 0640;
   }
+  file{'/etc/raddb/eap.conf':
+    source => [
+      "puppet://$server/modules/site-freeradius/$fqdn/eap.conf",
+      "puppet://$server/modules/site-freeradius/eap.conf",
+      "puppet://$server/modules/freeradius/eap.conf",
+    ],
+    notify => Service['radiusd'],
+    require => Package['freeradius2'],
+    owner => root, group => root, mode => 0640;
+  }
   file{'/etc/raddb/sites-available/default':
     source => [
       "puppet://$server/modules/site-freeradius/sites-available/$fqdn/default",
